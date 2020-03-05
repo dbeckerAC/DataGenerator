@@ -1,0 +1,21 @@
+{
+  "name": "datagenerator",
+  "version": "1.0.0",
+  "description": "A C++ header file generator for data storage classes and structures",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [
+    "Generator",
+    "C++",
+    "Class",
+    "Data",
+    "Container"
+  ],
+  "author": "Jens Klimke",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parser": "^2.3.2"
+  }
+}
