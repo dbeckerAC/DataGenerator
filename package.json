@@ -2,7 +2,7 @@
   "name": "datagenerator",
   "version": "1.0.0",
   "description": "A C++ header file generator for data storage classes and structures",
-  "main": "index.js",
+  "main": "Generator.js",
   "scripts": {
     "test": "test.js"
   },

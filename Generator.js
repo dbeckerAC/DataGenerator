@@ -1,20 +1,39 @@
-let csv = require('csv-parser');
-let fs = require("fs");
+const csv = require('csv-parser');
+const path = require('path');
+const fs = require("fs");
+const yargs = require('yargs');
 let coder = require("./Coder.js");
 
-// parameters, TODO: parameters
-var folder = "Agentmodel";
-var install = "../../src";
-var input = "Agentmodel.json";
-var fieldsFile = "Agentmodel.csv";
+const argv = yargs
+    .option('file', {
+        alias: 'f',
+        description: 'The config file for the generation.',
+        type: 'string',
+        demandOption: true,
+    })
+    .option('out', {
+        alias: 'o',
+        description: 'The folder, where the result shall be generated in.',
+        type: 'string',
+        default: './'
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
+
+// parameters
+var folder = "./";
+var install = argv.out;
+var input = argv.file;
 
 var types = {};
 var enums = {};
 
 // get content
-var content = fs.readFile(folder + "/" + input, (err, content) => {
+fs.readFile(folder + "/" + input, (err, content) => {
 
     var jsonContent = JSON.parse(content);
+    var fieldsFile = path.dirname(input) + "/" + jsonContent.include;
 
     fs.createReadStream(folder + "/" + fieldsFile)
         .pipe(csv())
@@ -71,13 +90,6 @@ var generateCode = function(jsonContent) {
         // header directive
         let sw = (jsonContent.include_guard ? jsonContent.include_guard : jsonContent.name.toUpperCase() + "_H");
         let header = H.addBlock(`#ifndef ${sw}\n#define ${sw}`, `#endif // ${sw}`, false);
-
-        // add includes
-        header
-            .addBlock("", "", false)
-            .addLine("#include <iostream>")
-            // .addLine("#include "GenericContainer.h")
-            .addLine(`#include "Injection.h"`);
 
         // namespace
         let nspace = header.addBlock(`namespace ${jsonContent.namespace} {`, `} // namespace`, true);
@@ -273,7 +285,9 @@ var generateEnum = function(headerDef, headerInt, headerExt, type, namespace) {
     if(headerInt)
         headerInt.addLine(`void parse(${name} &obj, const std::string &value);`);
 
-    headerDef.addLine(`enum ${name} {${fields}};`);
+    headerDef.addLine('/** ' + type.description + ' */');
+    let enu = headerDef.addBlock(`enum ${name} {`, '};', true);
+    enu.addLine(fields);
 
 };
 
@@ -291,6 +305,7 @@ var generateStruct = function(headerDef, headerInt, headerExt, type, namespace, 
         headerInt.addLine(`void parse(${name} &obj, const GenericContainer &cont);`);
 
     // add type block
+    headerDef.addLine('/** ' + type.description + ' */');
     let body = headerDef.addBlock(`struct ${name}${parent} {`, `};`, true);
 
     // add operator
@@ -355,12 +370,12 @@ var generateEnumFunctions = function(body, type, namespace) {
 
         // add case
         sw.addLine(`case ${namespace}::${field}:`);
-        sw.addLine(`\tos << "${field}";`);
-        sw.addLine(`\tbreak;`);
+        sw.addLine(`    os << "${field}";`);
+        sw.addLine(`    break;`);
 
         let els = i === 0 ? '' : 'else ';
         fnc.addLine(`${els}if(value == "${field}")`);
-        fnc.addLine(`\tobj = ${field};`);
+        fnc.addLine(`    obj = ${field};`);
 
     }
 
@@ -390,9 +405,9 @@ var generateStructFunctions = function(body, type, namespace) {
 
         // add case
         if(field.type === "string") {
-            op.addLine(`\t<< "${sep}\\"${key}\\" : \\"" << obj.${key} << "\\""`);
+            op.addLine(`    << "${sep}\\"${key}\\" : \\"" << obj.${key} << "\\""`);
         } else
-            op.addLine(`\t<< "${sep}\\"${key}\\" : " << obj.${key}`);
+            op.addLine(`    << "${sep}\\"${key}\\" : " << obj.${key}`);
 
 
         // get type
@@ -410,8 +425,8 @@ var generateStructFunctions = function(body, type, namespace) {
     }
 
     // add end of object
-    op.addLine(`\t<< "}";`);
-    op.addLine(`\treturn os;`);
+    op.addLine(`    << "}";`);
+    op.addLine(`    return os;`);
 
 };
 

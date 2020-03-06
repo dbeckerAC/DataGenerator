@@ -34,7 +34,7 @@ exports.Coder.prototype.generateCode = function(tabs) {
         // get block
         let block = this._blocks[i];
 
-        let t = "\t".repeat(this._tabLevel);
+        let t = "    ".repeat(this._tabLevel);
         if(block instanceof exports.Coder)
             code += block.generateCode(t);
         else
