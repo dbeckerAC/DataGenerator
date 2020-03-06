@@ -1,0 +1,260 @@
+{
+  "include": "Agentmodel.csv",
+  "author": "Jens Klimke <jens.klimke@rwth-aachen.de>",
+  "copyright": "Institute for Automotive Engineering (ika), RWTH Aachen University",
+  "license": "license_mit.txt",
+  "include_guard": "AGENT_MODEL_INTERFACE_H",
+  "year": 2020,
+  "namespace": "agent_model",
+  "name": "AgentModelInterface",
+  "description": "The agent model data structure.",
+  "wrapper": {
+    "file_addition": "Injection",
+    "class": "Injection",
+    "include": "\"Injection.h\"",
+    "include_guard": "AGENT_MODEL_INTERFACE_INJECTION_H"
+  },
+  "constants": [
+    {
+      "name": "NOT",
+      "value": 32,
+      "type": "unsigned int",
+      "description": "Maximum defined number of targets."
+    },
+    {
+      "name": "NOL",
+      "value": 32,
+      "type": "unsigned int",
+      "description": "Maximum defined number of lanes."
+    },
+    {
+      "name": "NOS",
+      "value": 32,
+      "type": "unsigned int",
+      "description": "Maximum defined number of signals."
+    },
+    {
+      "name": "NOH",
+      "value": 32,
+      "type": "unsigned int",
+      "description": "Maximum defined number of horizon sample points."
+    },
+    {
+      "name": "NORP",
+      "value": 2,
+      "type": "unsigned int",
+      "description": "Number of reference points per control path."
+    },
+    {
+      "name": "NOCP",
+      "value": 3,
+      "type": "unsigned int",
+      "description": "Number of control paths."
+    },
+    {
+      "name": "NOA",
+      "value": 32,
+      "type": "unsigned int",
+      "description": "Number of auxiliary states."
+    }
+  ],
+  "types": {
+    "accessibility": {
+      "name": "Accessibility",
+      "type": "enum",
+      "list": [
+        "ACC_NOT_SET",
+        "ACC_ACCESSIBLE",
+        "ACC_NOT_ALLOWED",
+        "ACC_NOT_ACCESSIBLE"
+      ],
+      "description": "This enum describes a access state of an area."
+    },
+    "driving_direction": {
+      "name": "DrivingDirection",
+      "type": "enum",
+      "list": [
+        "DD_FORWARDS",
+        "DD_BACKWARDS",
+        "DD_BOTH",
+        "DD_NONE",
+        "DD_NOT_SET"
+      ],
+      "description": "This enum defines the driving direction of a lane."
+    },
+    "signal_type": {
+      "name": "SignalType",
+      "type": "enum",
+      "list": [
+        "SIGNAL_NOT_SET",
+        "SIGNAL_STOP",
+        "SIGNAL_TLS",
+        "SIGNAL_SPEED_LIMIT"
+      ],
+      "description": "This enum describes the type of a road signal."
+    },
+    "position": {
+      "name": "Position",
+      "type": "struct",
+      "description": "A 2D position class."
+    },
+    "dynamic_position": {
+      "name": "DynamicPosition",
+      "type": "struct",
+      "description": "A 2D position with motion and a influence factor."
+    },
+    "point": {
+      "name": "Point",
+      "type": "struct",
+      "description": "A point class, consisting of a distance and a value."
+    },
+    "dimensions": {
+      "name": "Dimensions",
+      "type": "struct",
+      "description": "A dimensions class, saving width and length of an object."
+    },
+    "vehicle_state": {
+      "name": "VehicleState",
+      "type": "struct",
+      "description": "A class to save a vehicle state."
+    },
+    "horizon": {
+      "name": "Horizon",
+      "type": "struct",
+      "description": "A class to store horizon points."
+    },
+    "lane": {
+      "name": "Lane",
+      "type": "struct",
+      "description": "A class to store lane information."
+    },
+    "signal": {
+      "name": "Signal",
+      "type": "struct",
+      "description": "A class to store signal information."
+    },
+    "target": {
+      "name": "Target",
+      "type": "struct",
+      "description": "A class to store target information."
+    },
+    "decisions": {
+      "name": "Decision",
+      "type": "struct",
+      "description": "A class to store the internal state for the decisions components."
+    },
+    "conscious_velocity": {
+      "name": "ConsciousVelocity",
+      "type": "struct",
+      "description": "A class to store the internal state for the conscious/velocity component."
+    },
+    "conscious_stop": {
+      "name": "ConsciousStop",
+      "type": "struct",
+      "description": "A class to store the internal state for the conscious/stop component."
+    },
+    "conscious_follow": {
+      "name": "ConsciousFollow",
+      "type": "struct",
+      "description": "A class to store the internal state for the conscious/follow component."
+    },
+    "conscious_lateral": {
+      "name": "ConsciousLateral",
+      "type": "struct",
+      "description": "A class to store the internal state for the conscious/lateral component."
+    },
+    "conscious": {
+      "name": "Conscious",
+      "type": "struct",
+      "description": "A class to store the internal state for the conscious components."
+    },
+    "subconscious": {
+      "name": "Subconscious",
+      "type": "struct",
+      "description": "A class to store the internal state for the subconscious components."
+    },
+    "memory_vehicle": {
+      "name": "MemoryVehicle",
+      "type": "struct",
+      "description": "A class to store all memory vehicle states."
+    },
+    "memory_stop": {
+      "name": "MemoryStopping",
+      "type": "struct",
+      "description": "A class to store all memory stop states."
+    },
+    "memory_velocity": {
+      "name": "MemoryVelocityControl",
+      "type": "struct",
+      "description": "A class to store all memory velocity states."
+    },
+    "memory_lateral": {
+      "name": "MemoryLateral",
+      "type": "struct",
+      "description": "A class to store all memory lateral control states."
+    },
+    "memory_laneChange": {
+      "name": "MemoryLaneChange",
+      "type": "struct",
+      "description": "A class to store all memory lane change states."
+    },
+    "parameter_velocity": {
+      "name": "ParameterVelocityControl",
+      "type": "struct",
+      "description": "A class to store the parameters for velocity components."
+    },
+    "parameter_follow": {
+      "name": "ParameterFollowing",
+      "type": "struct",
+      "description": "A class to store the parameters for follow components."
+    },
+    "parameter_vehicle": {
+      "name": "ParameterVehicle",
+      "type": "struct",
+      "description": "A class to store the parameters of the ego vehicle."
+    },
+    "parameter_steering": {
+      "name": "ParameterSteering",
+      "type": "struct",
+      "description": "A class to store the parameters of the steering components."
+    },
+    "parameter_stop": {
+      "name": "ParameterStopping",
+      "type": "struct",
+      "description": "A class to store the parameters of the stop components."
+    },
+    "parameter_laneChange": {
+      "name": "ParameterLaneChange",
+      "type": "struct",
+      "description": "A class to store the parameters of the lane change components."
+    },
+    "input": {
+      "name": "Input",
+      "type": "struct",
+      "description": "A class to store the inputs."
+    },
+    "state": {
+      "name": "State",
+      "type": "struct",
+      "description": "A class to store all internal states."
+    },
+    "memory": {
+      "name": "Memory",
+      "type": "struct",
+      "description": "A class to store all memory states."
+    },
+    "parameters": {
+      "name": "Parameters",
+      "type": "struct",
+      "description": "A class to store all parameters."
+    }
+  },
+  "tree" : [
+    "input",
+    "decisions",
+    "conscious",
+    "subconscious",
+    "memory",
+    "parameters"
+  ]
+}
