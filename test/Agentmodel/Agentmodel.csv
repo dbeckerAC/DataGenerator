@@ -35,7 +35,7 @@
 "lane","closed","double","","Distance on the lane until the lane is closed.","m","l_\text{closed}"
 "lane","dir","driving_direction","","The driving direction of the lane related to the ego direction.","",""
 "lane","access","accessibility","","The accessibility of the lane from the ego lane.","",""
-"target","id","unsigned int","","Unique ID of the signal","",""
+"target","id","unsigned int","","Unique ID of the target. id=0 indicates that the target is not defined in the array position","",""
 "target","ds","double","","Distance along s to the target center point from the ego driver position.","m","\Delta s"
 "target","xy","position","","Relative position of the target relative to the driver position and heading.","","\vec{x}"
 "target","v","double","","Absolute velocity of the target.","m/s","v"
