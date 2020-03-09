@@ -17,7 +17,7 @@
 "vehicle_state","d","double","","The lateral offset of the vehicle to the current reference line of the track (e.g. lane center).","m","d"
 "vehicle_state","pedal","double","","The actual pedal value [-1..1]. Negative values define a brake pedal","","X_\text{pedal}"
 "vehicle_state","steering","double","","The actual steering value [-1..1]. Negative values define left turns","","X_\text{steer}"
-"horizon","ds","double","NOH","Distance to the horizon point along s.","m","s"
+"horizon","ds","double","NOH","Distance to the horizon point along s measured from the origin of the ego coordinate system.","m","s"
 "horizon","x","double","NOH","x ordinate relative to ego unit","m","x"
 "horizon","y","double","NOH","y ordinate relative to ego unit","m","y"
 "horizon","psi","double","NOH","heading relative to vehicle x-axis","rad","psi"
