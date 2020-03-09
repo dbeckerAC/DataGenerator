@@ -29,7 +29,7 @@
 "signal","ds","double","","Distance to the sign from the current position along the reference line.","m","\Delta s"
 "signal","type","signal_type","","Type of the signal.","",""
 "signal","value","int","","Value of the signal.","",""
-"lane","id","unsigned int","","Unique ID of the signal","",""
+"lane","id","int","","Unique ID of the signal. >> DBE: The id is not just an identifier but also specifies the position of the lane relative to the ego lane in OpenDRIVE manner! e.g. -1 = the next lane to the left, 1 = the next lane to the right.","",""
 "lane","width","double","","Width of the lane","m","w"
 "lane","route","double","","Distance on the lane until the lane splits from the current route.","m","l_\text{route}"
 "lane","closed","double","","Distance on the lane until the lane is closed.","m","l_\text{closed}"
